@@ -8,6 +8,6 @@ const port = process.env.PORT || 3000;
 
 connectDatabase();
 app.use(express.json());
-app.use("/user", userRoute);
+app.use("/lead", userRoute);
 
 app.listen(port, () => console.log(`API listening on port: ${port}`));

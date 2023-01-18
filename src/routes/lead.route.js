@@ -1,6 +1,10 @@
 const route = require("express").Router();
-const userController = require("../controllers/lead.controller");
+const leadController = require("../controllers/lead.controller");
+const { validId, validUser, validForm } = require("../middlewares/global.middlewares");
 
-route.post("/", userController.create);
+route.post("/", validForm, leadController.create);
+route.get("/", leadController.findAll);
+route.get("/:id", validId, validUser, leadController.findById);
+route.delete("/:id", validId, validUser, leadController.findByIdAndDelete);
 
 module.exports = route;

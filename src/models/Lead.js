@@ -15,6 +15,18 @@ const LeadSchema = new mongoose.Schema({
     },
     reference: {
         type: String
+    },
+    day: {
+        type: Number,
+        required: true
+    },
+    month: {
+        type: Number,
+        required: true
+    },
+    year: {
+        type: Number,
+        required: true
     }
 })
 
