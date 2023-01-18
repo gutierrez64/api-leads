@@ -1,0 +1,22 @@
+{
+  "name": "api-leads",
+  "version": "1.0.0",
+  "description": "this API manages the leads of an online campaign for a future web application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "API",
+    "leads"
+  ],
+  "author": "Gutierrez",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4",
+    "nodemon": "^2.0.20"
+  }
+}
