@@ -29,10 +29,15 @@ const validForm = (req, res, next) => {
         return res.status(400).send({ message: "Please fill in the mandatory fields" });
     }
 
-    const date = new Date();
-    req.body.day = date.getDate();
-    req.body.month = date.getMonth() + 1;
-    req.body.year = date.getFullYear();
+    next();
+}
+
+const validDate = async (req, res, next) => {
+    const { day, month, year } = req.params;
+
+    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+        return res.status(400).send({ message: "Please fill in the mandatory fields" });
+    }
 
     next();
 }
@@ -40,5 +45,6 @@ const validForm = (req, res, next) => {
 module.exports = {
     validId,
     validUser,
-    validForm
+    validForm,
+    validDate
 }

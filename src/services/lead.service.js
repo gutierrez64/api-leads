@@ -8,9 +8,12 @@ const findAllService = () => Lead.find();
 
 const findByIdService = (id) => Lead.findById(id);
 
+const findByDateService = (day, month, year) => Lead.findOne({ day, month, year });
+
 module.exports = {
     createService,
     deleteService,
     findAllService,
-    findByIdService
+    findByIdService,
+    findByDateService
 }
