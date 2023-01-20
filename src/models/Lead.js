@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const LeadSchema = new mongoose.Schema({
     name: {
@@ -32,4 +32,4 @@ const LeadSchema = new mongoose.Schema({
 
 const Lead = mongoose.model("Lead", LeadSchema);
 
-module.exports = Lead;
+export default Lead;

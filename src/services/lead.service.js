@@ -1,4 +1,4 @@
-const Lead = require("../models/Lead");
+import Lead from "../models/Lead.js";
 
 const createService = (body) => Lead.create(body);
 
@@ -8,12 +8,9 @@ const findAllService = () => Lead.find();
 
 const findByIdService = (id) => Lead.findById(id);
 
-const findByDateService = (day, month, year) => Lead.findOne({ day, month, year });
-
-module.exports = {
+export default {
     createService,
     deleteService,
     findAllService,
-    findByIdService,
-    findByDateService
+    findByIdService
 }

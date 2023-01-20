@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "this API manages the leads of an online campaign for a future web application",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index",
     "dev": "nodemon index"

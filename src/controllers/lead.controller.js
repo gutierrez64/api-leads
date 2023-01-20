@@ -1,4 +1,4 @@
-const leadService = require("../services/lead.service");
+import leadService from "../services/lead.service.js";
 
 const create = async (req, res) => {
     try {
@@ -67,26 +67,9 @@ const findById = async (req, res) => {
     }
 }
 
-const findByDate = async (req, res) => {
-    try {
-        const { day, month, year } = req.params;
-
-        const leads = await leadService.findByDateService(day, month, year);
-
-        if (!leads) {
-            return res.status(400).send({ message: "There are no registered leads" })
-        }
-
-        res.send(leads);
-    } catch (err) {
-        res.status(500).send({ message: err.message });
-    }
-}
-
-module.exports = {
+export default {
     create,
     findAll,
     findById,
-    findByIdAndDelete,
-    findByDate
+    findByIdAndDelete
 }
