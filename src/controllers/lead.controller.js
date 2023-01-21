@@ -2,11 +2,6 @@ import leadService from "../services/lead.service.js";
 
 const create = async (req, res) => {
     try {
-        const date = new Date();
-        req.body.day = date.getDate();
-        req.body.month = date.getMonth() + 1;
-        req.body.year = date.getFullYear();
-
         const lead = await leadService.createService(req.body);
 
         if (!lead) {

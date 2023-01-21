@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const connectDatabase = () => {
     console.log("Connecting...");
     mongoose.connect(
-        `mongodb+srv://root:dbpasswordcluster04042@cluster0.xlse9nt.mongodb.net/?retryWrites=true&w=majority`,
+        process.env.DATABASE_PATH,
         { useNewUrlParser: true, useUnifiedTopology: true }
     )
         .then(() => console.log("Connected to the database."))

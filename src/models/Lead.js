@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const date = new Date();
+
 const LeadSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -18,16 +20,22 @@ const LeadSchema = new mongoose.Schema({
     },
     day: {
         type: Number,
-        required: true
+        required: false
     },
     month: {
         type: Number,
-        required: true
+        required: false
     },
     year: {
         type: Number,
-        required: true
+        required: false
     }
+})
+
+LeadSchema.pre("save", function(){
+    this.day = date.getDate();
+    this.month = date.getMonth() + 1;
+    this.year = date.getFullYear();
 })
 
 const Lead = mongoose.model("Lead", LeadSchema);
