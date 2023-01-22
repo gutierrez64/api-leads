@@ -1,23 +1,26 @@
 import adminService from "../services/admin.service.js";
 
+const handleError = (res, err) => {
+    return res.status(500).json({ message: err.message });
+};
+
 const create = async (req, res) => {
     try {
         const admin = await adminService.createService(req.body);
 
         if (!admin) {
-            res.status(400).send({ message: "Error submitting the form" });
+            return res.status(400).json({ message: "Error submitting the form" });
         }
 
-        res.status(201).send({
-            message: "successfully registered admin",
-            admin: {
-                id: admin._id,
-                email: admin.email
-            }
-        })
+        const { _id, email } = admin;
+        
+        return res.status(201).json({
+            message: "Successfully registered admin",
+            admin: { id: _id, email }
+        });
     } catch (err) {
-        res.status(500).send({ message: err.message });
+        handleError(res, err);
     }
-}
+};
 
-export default { create }
+export default { create };

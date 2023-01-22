@@ -2,10 +2,28 @@ import mongoose from "mongoose";
 import userService from "../services/lead.service.js";
 import adminService from "../services/admin.service.js";
 
+const isValidId = (id) => {
+    return mongoose.Types.ObjectId.isValid(id);
+}
+
+const isValidLead = async (id) => {
+    const lead = await userService.findByIdService(id);
+    return !!lead;
+}
+
+const isValidForm = ({ name, phone, project_description }) => {
+    return !!name && !!phone && !!project_description;
+}
+
+const isValidAdmin = async (email) => {
+    const admin = await adminService.findByEmailService(email);
+    return !admin;
+}
+
 export const validId = (req, res, next) => {
     const id = req.params.id;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!isValidId(id)) {
         return res.status(400).send({ message: "Invalid ID" });
     }
 
@@ -14,9 +32,9 @@ export const validId = (req, res, next) => {
 
 export const validUser = async (req, res, next) => {
     const id = req.params.id;
-    const lead = await userService.findByIdService(id);
+    const isValid = await isValidLead(id);
 
-    if (!lead) {
+    if (!isValid) {
         return res.status(400).send({ message: "Lead not found" });
     }
 
@@ -26,7 +44,7 @@ export const validUser = async (req, res, next) => {
 export const validForm = (req, res, next) => {
     const { name, phone, project_description } = req.body;
 
-    if (!name || !phone || !project_description) {
+    if (!isValidForm({ name, phone, project_description })) {
         return res.status(400).send({ message: "Please fill in the mandatory fields" });
     }
 
@@ -36,13 +54,13 @@ export const validForm = (req, res, next) => {
 export const validLogin = async (req, res, next) => {
     const { email, password } = req.body;
 
-    if(!email || !password){
+    if (!email || !password) {
         return res.status(400).send({ message: "Please fill all fields" });
     }
 
-    const admin = await adminService.findByEmailService(email);
+    const isValid = await isValidAdmin(email);
 
-    if(admin){
+    if (!isValid) {
         return res.status(400).send({ message: "This email is already registered" });
     }
 
