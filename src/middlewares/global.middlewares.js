@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import userService from "../services/lead.service.js";
 import adminService from "../services/admin.service.js";
+import { loginService } from "../services/auth.service.js";
 
 const isValidId = (id) => {
     return mongoose.Types.ObjectId.isValid(id);
@@ -16,7 +17,7 @@ const isValidForm = ({ name, phone, project_description }) => {
 }
 
 const isValidAdmin = async (email) => {
-    const admin = await adminService.findByEmailService(email);
+    const admin = await loginService(email);
     return !admin;
 }
 

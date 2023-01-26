@@ -1,4 +1,4 @@
-import adminService from "../services/admin.service.js";
+import {createService} from "../services/admin.service.js";
 
 const handleError = (res, err) => {
     return res.status(500).json({ message: err.message });
@@ -6,7 +6,7 @@ const handleError = (res, err) => {
 
 const create = async (req, res) => {
     try {
-        const admin = await adminService.createService(req.body);
+        const admin = await createService(req.body);
 
         if (!admin) {
             return res.status(400).json({ message: "Error submitting the form" });

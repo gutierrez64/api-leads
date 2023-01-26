@@ -4,7 +4,7 @@ const handleError = (res, err) => {
     return res.status(500).json({ message: err.message });
 };
 
-const create = async (req, res) => {
+export const create = async (req, res) => {
     try {
         const lead = await leadService.createService(req.body);
 
@@ -12,25 +12,18 @@ const create = async (req, res) => {
             return res.status(400).json({ message: "Error submitting the form" });
         }
 
+        const { _id, name, phone, project_description, reference, day, month, year } = lead;
+
         return res.status(201).json({
             message: "Successfully registered form",
-            lead: {
-                id: lead._id,
-                name: lead.name,
-                phone: lead.phone,
-                project_description: lead.project_description,
-                reference: lead.reference,
-                day: lead.day,
-                month: lead.month,
-                year: lead.year
-            }
+            lead: { _id, name, phone, project_description, reference, day, month, year }
         });
     } catch (err) {
         handleError(res, err);
     }
 };
 
-const findByIdAndDelete = async (req, res) => {
+export const findByIdAndDelete = async (req, res) => {
     try {
         const id = req.params.id;
         await leadService.deleteService(id);
@@ -41,7 +34,7 @@ const findByIdAndDelete = async (req, res) => {
     }
 };
 
-const findAll = async (req, res) => {
+export const findAll = async (req, res) => {
     try {
         const leads = await leadService.findAllService();
 
@@ -55,7 +48,7 @@ const findAll = async (req, res) => {
     }
 };
 
-const findById = async (req, res) => {
+export const findById = async (req, res) => {
     try {
         const id = req.params.id;
         const lead = await leadService.findByIdService(id);
@@ -66,11 +59,4 @@ const findById = async (req, res) => {
     } catch (err) {
         handleError(res, err);
     }
-};
-
-export default {
-    create,
-    findAll,
-    findById,
-    findByIdAndDelete
 };
